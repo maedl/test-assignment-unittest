@@ -7,5 +7,14 @@
     "jest": "^29.4.1",
     "parcel": "^2.8.0",
     "ts-jest": "^29.0.5"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageReporters": ["html"]
+  },
+  "scripts": {
+    "test": "npx jest --watchAll"
   }
 }
