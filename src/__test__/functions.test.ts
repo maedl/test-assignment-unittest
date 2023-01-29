@@ -1,4 +1,4 @@
-import { changeTodo, removeAllTodos } from "../ts/functions";
+import { addTodo, changeTodo, removeAllTodos } from "../ts/functions";
 import { Todo } from "../ts/models/Todo"
 
 test('should change todo done status', () => {
@@ -23,4 +23,23 @@ test('should remove all todos from array', () => {
 
   expect(originalLength).toBe(3);
   expect(todoList.length).toBe(0);
+})
+
+
+test('should add todo to list', () => {
+  let todoList: Todo[] = [];
+  let todoText: string = 'example todo'
+
+  addTodo(todoText, todoList);
+  expect(todoList.length).toBe(1);
+  expect(todoList[todoList.length - 1].text).toBe(todoText);
+})
+
+test('should NOT add todo to list', () => {
+  let todoList: Todo[] = [];
+  let todoText: string = 'a'  // should be too short
+  let originalLength: number = todoList.length;
+
+  addTodo(todoText, todoList);
+  expect(todoList.length).toBe(originalLength);
 })
