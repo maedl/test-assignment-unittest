@@ -177,3 +177,52 @@ describe('tests for clearTodos', () => {
   })
 
 })
+
+describe('test click events', () => {
+
+  test('should call clearTodos when clicking clearTodos-element', () => {
+    let spy = jest.spyOn(main, 'clearTodos');
+    addClearTodosEventListener();
+
+    let btn: HTMLButtonElement = document.querySelector('#clearTodos') as HTMLButtonElement;
+    btn.click();
+
+    expect(spy).toHaveBeenCalled();
+  })
+
+  test('should create a new todo when submitting form', () => {
+    let spy = jest.spyOn(main, 'createNewTodo');
+    addNewTodoFormEventListener();
+
+    let btn: HTMLButtonElement = document.querySelector('button') as HTMLButtonElement;
+    btn.click();
+
+    expect(spy).toHaveBeenCalled();
+  })
+
+})
+
+function addClearTodosEventListener() {
+  let todos: Todo[] = [];
+  document.getElementById("clearTodos")?.addEventListener("click", () => {
+    main.clearTodos(todos);
+  })
+}
+
+function addNewTodoFormEventListener() {
+  let todos: Todo[] = [];
+  (document.getElementById("newTodoForm") as HTMLFormElement)?.addEventListener(
+    "submit",
+    (e: SubmitEvent) => {
+      e.preventDefault();
+  
+      let todoText: string = (
+        document.getElementById("newTodoText") as HTMLInputElement
+      ).value;
+      console.log("Todos when creating", todos);
+  
+      main.createNewTodo(todoText, todos);
+    }
+  );
+  
+}
