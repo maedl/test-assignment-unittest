@@ -54,15 +54,47 @@ describe('tests for createNewTodo', () => {
 describe('tests for createHtml', () => {
   
   test('should add li elements to ul container', () => {
+    let inputText: string = 'example todo';
+    let doneStatus: boolean = false;
     let todoList: Todo[] = [];
 
-      let todo: Todo = new Todo('example todo', false);
-      todoList.push(todo)
+    let todo: Todo = new Todo(inputText, doneStatus);
+    todoList.push(todo)
 
     main.createHtml(todoList);
 
-    // expect ett html element 😲
+    let liElement: HTMLLIElement = document.querySelector('#todos li') as HTMLLIElement;
+    expect(liElement.innerHTML).toBe('example todo');
+  })
 
+  test('should add done class to li elements in ul container', () => {
+    let inputText: string = 'example todo';
+    let doneStatus: boolean = true;
+    let todoList: Todo[] = [];
+
+    let todo: Todo = new Todo(inputText, doneStatus);
+    todoList.push(todo)
+
+    main.createHtml(todoList);
+
+    let liElement: HTMLLIElement = document.querySelector('#todos li') as HTMLLIElement;
+    expect(liElement.innerHTML).toBe('example todo');
+    expect(liElement.classList.contains('todo__text--done')).toBeTruthy();
+  })
+
+  test('should add regular text class to li elements in ul container', () => {
+    let inputText: string = 'example todo';
+    let doneStatus: boolean = false;
+    let todoList: Todo[] = [];
+
+    let todo: Todo = new Todo(inputText, doneStatus);
+    todoList.push(todo)
+
+    main.createHtml(todoList);
+
+    let liElement: HTMLLIElement = document.querySelector('#todos li') as HTMLLIElement;
+    expect(liElement.innerHTML).toBe('example todo');
+    expect(liElement.classList.contains('todo__text')).toBeTruthy();
   })
 
 })
