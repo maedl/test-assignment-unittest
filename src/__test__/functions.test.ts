@@ -1,4 +1,4 @@
-import { addTodo, changeTodo, removeAllTodos } from "../ts/functions";
+import { addTodo, changeTodo, removeAllTodos, sortTodos } from "../ts/functions";
 import { Todo } from "../ts/models/Todo"
 
 describe('test for changeTodo', () => {
@@ -51,4 +51,22 @@ describe('tests for addTodo', () => {
     expect(todoList.length).toBe(originalLength);
   })
   
+})
+
+
+describe('sorting test', () => {
+  test('should sort todo list', () => {
+    let todoList: Todo[] = [
+      new Todo('b', false),
+      new Todo('c', false),
+      new Todo('a', false)
+    ]
+ 
+    sortTodos(todoList);
+
+    expect(todoList[0].text).toBe('a');
+    expect(todoList[1].text).toBe('b');
+    expect(todoList[2].text).toBe('c');
+  })
+
 })
