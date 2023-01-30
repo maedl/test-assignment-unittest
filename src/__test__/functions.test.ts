@@ -1,45 +1,54 @@
 import { addTodo, changeTodo, removeAllTodos } from "../ts/functions";
 import { Todo } from "../ts/models/Todo"
 
-test('should change todo done status', () => {
-  let todo: Todo = new Todo('example todo', false);
+describe('test for changeTodo', () => {
 
-  changeTodo(todo);
-
-  expect(todo.done).toBeTruthy();
-})
-
-test('should remove all todos from array', () => {
-  let todoList: Todo[] = [];
-
-  for (let i = 0; i < 3; i++) {
+  test('should change todo done status', () => {
     let todo: Todo = new Todo('example todo', false);
-    todoList.push(todo)
-  }
+    changeTodo(todo);
+    expect(todo.done).toBeTruthy();
+  })
 
-  let originalLength = todoList.length;
-
-  removeAllTodos(todoList);
-
-  expect(originalLength).toBe(3);
-  expect(todoList.length).toBe(0);
 })
 
+describe('test for removeAllTodos', () => {
 
-test('should add todo to list', () => {
-  let todoList: Todo[] = [];
-  let todoText: string = 'example todo'
-
-  addTodo(todoText, todoList);
-  expect(todoList.length).toBe(1);
-  expect(todoList[todoList.length - 1].text).toBe(todoText);
+  test('should remove all todos from array', () => {
+    let todoList: Todo[] = [];
+  
+    for (let i = 0; i < 3; i++) {
+      let todo: Todo = new Todo('example todo', false);
+      todoList.push(todo)
+    }
+  
+    let originalLength = todoList.length;
+  
+    removeAllTodos(todoList);
+  
+    expect(originalLength).toBe(3);
+    expect(todoList.length).toBe(0);
+  })
+  
 })
 
-test('should NOT add todo to list', () => {
-  let todoList: Todo[] = [];
-  let todoText: string = 'a'  // should be too short
-  let originalLength: number = todoList.length;
+describe('tests for addTodo', () => {
 
-  addTodo(todoText, todoList);
-  expect(todoList.length).toBe(originalLength);
+  test('should add todo to list', () => {
+    let todoList: Todo[] = [];
+    let todoText: string = 'example todo'
+  
+    addTodo(todoText, todoList);
+    expect(todoList.length).toBe(1);
+    expect(todoList[todoList.length - 1].text).toBe(todoText);
+  })
+  
+  test('should NOT add todo to list', () => {
+    let todoList: Todo[] = [];
+    let todoText: string = 'a'  // should be too short
+    let originalLength: number = todoList.length;
+  
+    addTodo(todoText, todoList);
+    expect(todoList.length).toBe(originalLength);
+  })
+  
 })
