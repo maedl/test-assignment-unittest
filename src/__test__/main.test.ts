@@ -12,6 +12,7 @@ beforeEach(() => {
   document.body.innerHTML = '';
   document.body.innerHTML = body;
   localStorage.clear();
+  jest.restoreAllMocks();
 });
 
 describe('tests for createNewTodo', () => {
@@ -25,8 +26,6 @@ describe('tests for createNewTodo', () => {
     
     main.createNewTodo(inputText, todoList);
     expect(spyOnAddTodo).toHaveBeenCalled();
-  
-    spyOnAddTodo.mockRestore();
   })
 
   test('should call createHtml', () => {
@@ -49,6 +48,72 @@ describe('tests for createNewTodo', () => {
     main.createNewTodo(inputText, todoList);
     expect(spyOnAdddisplayError).toHaveBeenCalled();
   
+  })
+
+})
+
+describe('tests for createHtml', () => {
+  
+  test('should add li elements to ul container', () => {
+    let todoList: Todo[] = [];
+
+      let todo: Todo = new Todo('example todo', false);
+      todoList.push(todo)
+
+    main.createHtml(todoList);
+
+    // expect ett html element
+
+  })
+
+})
+
+describe('test for toggleTodo', () => {
+
+  test('should call changeTodo', () => {
+    // arrange
+    let todo: Todo = new Todo('example Todo', false);
+    let spy = jest.spyOn(functions, 'changeTodo').mockReturnValue();
+
+    main.toggleTodo(todo);
+
+    expect(spy).toHaveBeenCalled();
+  })
+
+  test('should call createHtml', () => {
+    let todo: Todo = new Todo('example Todo', false);
+    let spy = jest.spyOn(main, 'createHtml').mockReturnValue();
+    
+    main.toggleTodo(todo);
+
+    expect(spy).toHaveBeenCalled();
+  })
+
+}
+)
+
+describe('tests for displayError', () => {
+
+})
+
+describe('tests for clearTodos', () => {
+
+  test('should call removeAllTodos', () => {
+    let todoList: Todo[] = [];
+    let spy = jest.spyOn(functions, 'removeAllTodos').mockReturnValue();
+
+    main.clearTodos(todoList);
+
+    expect(spy).toHaveBeenCalled();
+  })
+
+  test('should call removeAllTodos', () => {
+    let todoList: Todo[] = [];
+    let spy = jest.spyOn(main, 'createHtml').mockReturnValue();
+
+    main.clearTodos(todoList);
+
+    expect(spy).toHaveBeenCalled();
   })
 
 })
