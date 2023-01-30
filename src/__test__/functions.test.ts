@@ -61,12 +61,13 @@ describe('sorting test', () => {
       new Todo('c', false),
       new Todo('a', false)
     ]
- 
-    sortTodos(todoList);
+    let alphabet: Array<string> = ['a', 'b', 'c'];
 
-    expect(todoList[0].text).toBe('a');
-    expect(todoList[1].text).toBe('b');
-    expect(todoList[2].text).toBe('c');
+    sortTodos(todoList);
+    
+    for (let i = 0; i < todoList.length; i++) {
+      expect(todoList[i].text).toBe(alphabet[i]);
+    }
   })
 
 })
