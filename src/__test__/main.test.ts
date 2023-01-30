@@ -26,6 +26,7 @@ describe('tests for createNewTodo', () => {
     
     main.createNewTodo(inputText, todoList);
     expect(spyOnAddTodo).toHaveBeenCalled();
+    expect(spyOnAddTodo).toHaveBeenCalledWith(inputText, todoList);
   })
 
   test('should call createHtml', () => {
@@ -40,14 +41,12 @@ describe('tests for createNewTodo', () => {
 
   test('should call displayError', () => {
     let todoList: Todo[] = [];
-    let inputText = 'invalid todo text';
+    let inputText = 'a'; // invalid todo text, too short
     
-    let addedResponse: IAddResponse = {success: false, error: ''};
-    let spyOnAdddisplayError = jest.spyOn(functions, 'addTodo').mockReturnValue(addedResponse); 
-    
+    let spyOnDisplayError = jest.spyOn(main, 'displayError')
+
     main.createNewTodo(inputText, todoList);
-    expect(spyOnAdddisplayError).toHaveBeenCalled();
-  
+    expect(spyOnDisplayError).toHaveBeenCalled();
   })
 
 })
@@ -62,7 +61,7 @@ describe('tests for createHtml', () => {
 
     main.createHtml(todoList);
 
-    // expect ett html element
+    // expect ett html element 😲
 
   })
 
@@ -93,6 +92,35 @@ describe('test for toggleTodo', () => {
 )
 
 describe('tests for displayError', () => {
+
+  test('should add class to error container', () => {
+    let errorMsg = 'Error!';
+    let errContainer: HTMLDivElement = document.querySelector('#error') as HTMLDivElement;
+    
+    main.displayError(errorMsg, true);
+
+    expect(errContainer.innerHTML).toBe('Error!');
+    expect(errContainer.classList.contains("show")).toBeTruthy();
+  })
+
+  test('should NOT add class to error container', () => {
+    let errorMsg = 'Error!';
+    let errContainer: HTMLDivElement = document.querySelector('#error') as HTMLDivElement;
+    
+    main.displayError(errorMsg, false);
+
+    expect(errContainer.classList.contains("show")).toBeFalsy();
+  })
+
+  test('should add error msg to error container', () => {
+    let errorMsg = 'Error!';
+    let errContainer: HTMLDivElement = document.querySelector('#error') as HTMLDivElement;
+    
+    main.displayError(errorMsg, true);
+
+    expect(errContainer.innerHTML).toBe('Error!');
+  })
+
 
 })
 
